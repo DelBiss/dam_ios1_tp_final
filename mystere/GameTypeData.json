@@ -1,0 +1,29 @@
+[
+  {
+    "id": "Classique",
+    "props": {
+      "min": 1,
+      "max": 100,
+      "nbTry": 10
+    },
+    "editable": false
+  },
+  {
+    "id": "Rapide",
+    "props": {
+      "min": 31,
+      "max": 42,
+      "nbTry": 3
+    },
+    "editable": false
+  },
+  {
+    "id": "Personalise",
+    "props": {
+      "min": 1,
+      "max": 100,
+      "nbTry": 5
+    },
+    "editable": true
+  }
+]
