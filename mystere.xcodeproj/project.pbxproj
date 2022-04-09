@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F01564922802172B00D1C0AB /* PropertyLoopable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F01564912802172B00D1C0AB /* PropertyLoopable.swift */; };
 		F0280CD728012BBB008B3F7A /* GameTypeData.json in Resources */ = {isa = PBXBuildFile; fileRef = F0280CD628012BBB008B3F7A /* GameTypeData.json */; };
 		F0280CDA28012BE7008B3F7A /* GameType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0280CD928012BE7008B3F7A /* GameType.swift */; };
 		F0280CDD28012C07008B3F7A /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = F0280CDC28012C07008B3F7A /* ModelData.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F01564912802172B00D1C0AB /* PropertyLoopable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyLoopable.swift; sourceTree = "<group>"; };
 		F0280CD628012BBB008B3F7A /* GameTypeData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = GameTypeData.json; sourceTree = "<group>"; };
 		F0280CD928012BE7008B3F7A /* GameType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameType.swift; sourceTree = "<group>"; };
 		F0280CDC28012C07008B3F7A /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				F08D0C1828012A160045F9EE /* ContentView.swift */,
 				F0280CDC28012C07008B3F7A /* ModelData.swift */,
 				F0280CDF28012C1C008B3F7A /* NewGameView.swift */,
+				F01564912802172B00D1C0AB /* PropertyLoopable.swift */,
 				F0280CD928012BE7008B3F7A /* GameType.swift */,
 				F0280CD628012BBB008B3F7A /* GameTypeData.json */,
 				F08D0C1A28012A170045F9EE /* Assets.xcassets */,
@@ -155,6 +158,7 @@
 				F0280CE028012C1C008B3F7A /* NewGameView.swift in Sources */,
 				F0280CDD28012C07008B3F7A /* ModelData.swift in Sources */,
 				F08D0C1728012A160045F9EE /* mystereApp.swift in Sources */,
+				F01564922802172B00D1C0AB /* PropertyLoopable.swift in Sources */,
 				F0280CDA28012BE7008B3F7A /* GameType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

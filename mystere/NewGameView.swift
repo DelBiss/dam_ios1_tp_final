@@ -7,53 +7,80 @@
 
 import SwiftUI
 
+struct GamePresetPicker:View {
+    
+    @Binding var gameTypes:[GameType]
+    @Binding var selectedIndex:Int
+    
+    var body: some View{
+        Section(header:Text("Type de la partie")){
+            if(gameTypes.count <= 3){
+                Picker("Type de partie", selection: $selectedIndex) {
+                    ForEach(0..<gameTypes.count) { index in
+                        Text(gameTypes[index].id)
+                    }
+                }
+                .pickerStyle(SegmentedPickerStyle())
+            }
+            else
+            {
+                Picker("Type de partie", selection: $selectedIndex) {
+                    ForEach(0..<gameTypes.count) { index in
+                        Text(gameTypes[index].id)
+                    }
+                }
+                .pickerStyle(WheelPickerStyle())
+            }
+        }
+    }
+}
+
+struct PropsStepper:View {
+    var label:String
+    var min:Int = 1
+    var max:Int = 999
+    @Binding var props:Int
+    
+    var body: some View{
+        Stepper(
+            value: $props,
+            in: min...max){
+            HStack{
+                Text("\(label):").bold()
+                Text("\(props)")
+            }
+        }
+    }
+    
+}
 struct NewGameView:View{
     @State var gameTypes:[GameType]
-    @State private var selectedType:Int = 2
+    @State private var selectedType:Int = 0
 
     var body: some View {
-        Form {
+        
+        return Form {
             
             List{
-                Section(header:Text("Type de la partie")){
-                    Picker("Type de partie", selection: $selectedType) {
-                        ForEach(0..<gameTypes.count) { index in
-                            Text(gameTypes[index].id)
-                        }
-                    }.pickerStyle(SegmentedPickerStyle())
-                }
+                GamePresetPicker(gameTypes: $gameTypes, selectedIndex: $selectedType)
+                
                 Section(header:Text("Parametre de la partie")){
                     
-                    
-                    Stepper(
-                    value:$gameTypes[selectedType].props.min,
-                    in:1...gameTypes[selectedType].props.max-1)
-                    {
-                        HStack{
-                            Text("Borne Minimal:").bold()
-                            Text("\(gameTypes[selectedType].props.min)")
-                        }
-                    }
-                    
-                    Stepper(
-                    value:$gameTypes[selectedType].props.max,
-                    in:gameTypes[selectedType].props.min+1...999)
-                    {
-                        HStack{
-                            Text("Borne Minimal:").bold()
-                            Text("\(gameTypes[selectedType].props.max)")
-                        }
-                    }
-                    
-                    Stepper(
-                        value:$gameTypes[selectedType].props.nbTry,
-                    in:0...100)
-                    {
-                        HStack{
-                            Text("Borne Minimal:").bold()
-                            Text("\(gameTypes[selectedType].props.nbTry)")
-                        }
-                    }
+                    PropsStepper(
+                        label: "Borne Minimal",
+                        max: gameTypes[selectedType].props.max-1,
+                        props: $gameTypes[selectedType].props.min
+                    )
+                    PropsStepper(
+                        label: "Borne Maximal",
+                        min: gameTypes[selectedType].props.min+1,
+                        props: $gameTypes[selectedType].props.max
+                    )
+                    PropsStepper(
+                        label: "Nb d'essaies",
+                        max: 100,
+                        props: $gameTypes[selectedType].props.nbTry
+                    )
                 
                 }
                 .disabled(!gameTypes[selectedType].editable)
