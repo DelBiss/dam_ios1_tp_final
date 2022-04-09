@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         NavigationView{
-        NewGameView(gameTypes: gameData)
+            GameView(gameConfig: gameData[1])
         }
     }
 }
