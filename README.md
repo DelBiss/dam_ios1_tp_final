@@ -29,9 +29,9 @@ Lorsque la partie est terminé, un écran de résultat s'affichera. Pour faire u
 Vous pouvez appuyer sur le bouton `Nouvelle Partie` en tout temps. Pour revenir à la partie en cours, appuyer sur le bouton `Annuler` ou *Swipe Down* l'écran. Si vous appuyer sur `Commencer une Partie ...`, la partie en cours sera annuler.
 
 ## Nouveau Design
-![a](./doc/iPhone_play%20(9).png) ![a](./doc/newGame.png)
-
-![a](./doc/iPhone_play%20(1).png) ![a](./doc/iPhone_play%20(10).png)
+| ![a](./doc/iPhone_play%20(9).png) |      ![a](./doc/newGame.png)       |
+| :-------------------------------: | :--------------------------------: |
+| ![a](./doc/iPhone_play%20(1).png) | ![a](./doc/iPhone_play%20(10).png) |
 
 ## Changement dans le design graphique initiale
 L'intention du design initiale était d'utiliser le Human Interface Guideline d'Apple et cela est resté.
@@ -41,14 +41,15 @@ Les principales changement concerne les methodes d'entré de l'utilisateur. Ces 
 Un autre changement est le visuel des essaies. Ce changement à eu lieu car le design initiale était temporaire et pas adapter à son intégration.
 
 ## Design Initiale
-![Old Design](./doc/old1.jpg) ![Old Design](./doc/old2.jpg)
-
+| ![Old Design](./doc/old1.jpg) | ![Old Design](./doc/old2.jpg) |
+| :---------------------------: | :---------------------------: |
 ## Autre Capture d'écran
 ### Icone
 ![a](./doc/iPhone_play%20(2).png)
 ### Launch Screen
 ![a](./doc/iPhone_play%20(3).png)
 ### Reactive (Paysage)
-![a](./doc/Reactive.png)
+| ![a](./doc/Reactive.png) |
+| :----------------------: |
 ### Reactive (iPad)
 ![a](./doc/iPad.png)
