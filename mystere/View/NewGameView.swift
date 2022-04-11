@@ -113,10 +113,18 @@ struct NewGameView:View{
                             presentationMode.wrappedValue.dismiss()
                         }
                     )
+                    
                 }
             }
-       
-        }.navigationTitle("Nouvelle Partie")
+            
+        }
+        .navigationBarItems(trailing: NavigationLink(
+            destination: GameView(controler: controler),
+            isActive: $controler.asActiveGame
+        ){
+            Text("Continuer la partie")
+        })
+        .navigationTitle("Nouvelle Partie")
         
     }
 }

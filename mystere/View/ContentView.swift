@@ -28,31 +28,23 @@ struct ContentView: View {
     @ObservedObject var controler:GameControler = GameControler()
     var body: some View {
         NavigationView{
+            NewGameView(controler:controler)
+                //.navigationBarItems(leading: Text("Version \(idiom)"))
             
-                if(controler.asActiveGame){
-                    GameView(game: controler.currentGame!)
-                        .navigationBarItems(
-                            leading: Text("Version \(idiom)"),
-                            trailing:
-                                Button("Nouvelle Partie"){
-                                    askNewGame = true
-                                }
-                        )
-                }
-                else{
-                    NewGameView(controler:controler)
-                        .navigationBarItems(leading: Text("Version \(idiom)"))
-                }
+           
+                //.navigationBarItems(
+                    //leading: Text("Version \(idiom)"),
+                    //trailing:
+                    //    Button("Nouvelle Partie"){
+                    //        askNewGame = true
+                    //    }
+                //)
+                
             
             
             
         }
-        .navigationViewStyle(StackNavigationViewStyle())
-        .sheet(isPresented: $askNewGame, content: {
-            NavigationView{
-                NewGameViewSheet(controler:controler)
-            }
-        })
+        
     }
 }
 

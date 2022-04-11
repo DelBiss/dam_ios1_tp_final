@@ -98,26 +98,27 @@ struct ActiveGame:View{
 }
 
 struct GameView:View{
-    @ObservedObject var game:ActiveGameControler
+    @ObservedObject var controler:GameControler
     
     var body: some View{
-        switch game.result {
-        case GameState.OnGoing:
-            ActiveGame(game: game)
-        case GameState.Win:
-            WinView(game: game)
-        case GameState.Fail:
-            FailView(game: game)
-        
-        }
-        
+            
+            switch controler.state {
+            case GameState.OnGoing:
+                ActiveGame(game: controler.currentGame!)
+            case GameState.Win:
+                WinView(game: controler.currentGame!)
+            case GameState.Fail:
+                FailView(game: controler.currentGame!)
+            case GameState.NoGame:
+                Text("No Game")
+            }
     }
 }
 
 struct GameView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationView{
-            ActiveGame(game:ActiveGameControler(GameControler().gameData[0].props))
+            
         }
         .previewDevice("iPhone 12 Pro Max")
     }

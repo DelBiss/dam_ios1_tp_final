@@ -63,8 +63,6 @@ struct FailView: View {
 struct WinView_Previews: PreviewProvider {
     static var previews: some View {
         Group {
-            WinView(game: ActiveGameControler(GameControler().gameData[0].props))
-            FailView(game: ActiveGameControler(GameControler().gameData[0].props))
                 
         }
     }

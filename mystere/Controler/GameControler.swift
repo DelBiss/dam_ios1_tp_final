@@ -8,7 +8,8 @@
 import Foundation
 import SwiftUI
 
-enum GameState {
+enum GameState: CaseIterable, Equatable {
+    case NoGame
     case OnGoing
     case Win
     case Fail
@@ -18,9 +19,16 @@ class ActiveGameControler: ObservableObject{
     @Published var tries:[TryData]
     @Published var possible:[Int]
     var mysteryNumber:Int
-    
+    var controler:GameControler
     var props:GameProperties
-    @Published var result:GameState = GameState.OnGoing
+    @Published var result:GameState = GameState.OnGoing {
+        willSet{
+            objectWillChange.send()
+        }
+        didSet{
+            controler.state = result
+        }
+    }
     var min:Int
     var max:Int
     var nbTryDone:Int = 0
@@ -33,7 +41,8 @@ class ActiveGameControler: ObservableObject{
         result != GameState.OnGoing
     }
     
-    init(_ newGameProps:GameProperties) {
+    init(controller myController:GameControler,props newGameProps:GameProperties) {
+        controler = myController
         props = newGameProps
         tries = []
         min = newGameProps.min
@@ -100,6 +109,7 @@ class GameControler: ObservableObject {
            }
            else{
             asActiveGame = true
+            state = .OnGoing
            }
         }
     }
@@ -108,9 +118,11 @@ class GameControler: ObservableObject {
     @Published var asActiveGame:Bool = false
     @Published var gameTypeIndex:Int = 0
     
+    @Published var state:GameState = .NoGame
     
     func StartNewGame(newGameProps:GameProperties){
-        currentGame = ActiveGameControler(newGameProps)
+        currentGame = nil
+        currentGame = ActiveGameControler(controller: self, props: newGameProps)
     }
     
     
