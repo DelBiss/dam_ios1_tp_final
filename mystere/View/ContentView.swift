@@ -7,11 +7,52 @@
 
 import SwiftUI
 
+private var idiom : String {
+    switch UIDevice.current.userInterfaceIdiom {
+    case .pad:
+        return "iPad"
+    case .phone:
+        return "iPhone"
+    case .carPlay:
+        return "Voiture"
+    case .tv:
+        return "Téléviseur"
+    default:
+        return "Fun"
+    }
+    
+}
+
 struct ContentView: View {
+    @State var askNewGame:Bool = false
+    @ObservedObject var controler:GameControler = GameControler()
     var body: some View {
         NavigationView{
-            GameView(gameConfig: gameData[1])
+            
+                if(controler.asActiveGame){
+                    GameView(game: controler.currentGame!)
+                        .navigationBarItems(
+                            leading: Text("Version \(idiom)"),
+                            trailing:
+                                Button("Nouvelle Partie"){
+                                    askNewGame = true
+                                }
+                        )
+                }
+                else{
+                    NewGameView(controler:controler)
+                        .navigationBarItems(leading: Text("Version \(idiom)"))
+                }
+            
+            
+            
         }
+        .navigationViewStyle(StackNavigationViewStyle())
+        .sheet(isPresented: $askNewGame, content: {
+            NavigationView{
+                NewGameViewSheet(controler:controler)
+            }
+        })
     }
 }
 

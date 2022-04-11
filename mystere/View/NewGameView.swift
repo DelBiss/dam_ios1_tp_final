@@ -17,7 +17,7 @@ struct GamePresetPicker:View {
             if(gameTypes.count <= 3){
                 Picker("Type de partie", selection: $selectedIndex) {
                     ForEach(0..<gameTypes.count) { index in
-                        Text(gameTypes[index].id)
+                        Text(gameTypes[index].props.name)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
@@ -26,7 +26,7 @@ struct GamePresetPicker:View {
             {
                 Picker("Type de partie", selection: $selectedIndex) {
                     ForEach(0..<gameTypes.count) { index in
-                        Text(gameTypes[index].id)
+                        Text(gameTypes[index].props.name)
                     }
                 }
                 .pickerStyle(WheelPickerStyle())
@@ -53,45 +53,69 @@ struct PropsStepper:View {
     }
     
 }
-struct NewGameView:View{
-    @State var gameTypes:[GameType]
-    @State private var selectedType:Int = 0
 
+struct NewGameViewSheet:View{
+    var controler:GameControler
+    @Environment(\.presentationMode) var presentationMode
+    
+    var body: some View{
+        NewGameView(controler: controler)
+            .navigationBarItems(leading: Button("Annuler"){
+                presentationMode.wrappedValue.dismiss()
+            })
+    }
+}
+struct NewGameView:View{
+    @Environment(\.presentationMode) var presentationMode
+    //@State private var selectedType:Int = 0
+    @ObservedObject var controler:GameControler
     var body: some View {
         
-        return Form {
+        Form {
             
             List{
-                GamePresetPicker(gameTypes: $gameTypes, selectedIndex: $selectedType)
+                GamePresetPicker(gameTypes: $controler.gameData, selectedIndex: $controler.gameTypeIndex)
                 
                 Section(header:Text("Parametre de la partie")){
                     
                     PropsStepper(
                         label: "Borne Minimal",
-                        max: gameTypes[selectedType].props.max-1,
-                        props: $gameTypes[selectedType].props.min
+                        max: controler.gameData[controler.gameTypeIndex].props.max-1,
+                        props: $controler.gameData[controler.gameTypeIndex].props.min
                     )
                     PropsStepper(
                         label: "Borne Maximal",
-                        min: gameTypes[selectedType].props.min+1,
-                        props: $gameTypes[selectedType].props.max
+                        min: controler.gameData[controler.gameTypeIndex].props.min+1,
+                        props: $controler.gameData[controler.gameTypeIndex].props.max
                     )
                     PropsStepper(
                         label: "Nb d'essaies",
                         max: 100,
-                        props: $gameTypes[selectedType].props.nbTry
+                        props: $controler.gameData[controler.gameTypeIndex].props.nbTry
                     )
                 
                 }
-                .disabled(!gameTypes[selectedType].editable)
+                .disabled(!controler.gameData[controler.gameTypeIndex].editable)
+                
+                Section(
+                    header: Text("Difficulté"),
+                    footer:Text("Le mode facile ajuste automatiquement les entrés possibles")
+                ){
+                    Toggle("Mode facile", isOn:$controler.gameData[controler.gameTypeIndex].props.easyMode)
+                }
                 Section{
-                    Button("Commencer une Partie \(gameTypes[selectedType].id)", action:{})
+                    Button(
+                        "Commencer une Partie \(controler.gameData[controler.gameTypeIndex].props.name)",
+                        action:{
+                            controler.StartNewGame(
+                                newGameProps: controler.gameData[controler.gameTypeIndex].props
+                            )
+                            presentationMode.wrappedValue.dismiss()
+                        }
+                    )
                 }
             }
-            
-            
-            
-                
+       
         }.navigationTitle("Nouvelle Partie")
         
     }
@@ -100,7 +124,7 @@ struct NewGameView:View{
 struct NewGameView_Previews: PreviewProvider {
     static var previews: some View {
         
-        NewGameView(gameTypes: gameData)
+        NewGameView(controler:GameControler())
             .previewDevice("iPhone 12 Pro Max")
     }
 }

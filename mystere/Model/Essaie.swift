@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct TryData:Hashable{
+struct TryData:Hashable,Identifiable{
     var id:Int
     var number:Int
     var result:Int

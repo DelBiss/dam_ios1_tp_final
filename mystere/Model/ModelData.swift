@@ -7,7 +7,7 @@
 
 import Foundation
 
-var gameData: [GameType] = load("GameTypeData.json")
+
 
 func load<T: Decodable>(_ filename: String) -> T {
     let data: Data

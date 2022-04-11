@@ -7,36 +7,6 @@
 
 import SwiftUI
 
-struct ArrowUp: View {
-    var sideSize:CGFloat = 20
-    var arrowColor:Color = Color.green
-    var body: some View{
-        VStack{
-            Group{
-                Rectangle()
-                    .fill(arrowColor)
-                    .border(/*@START_MENU_TOKEN@*/Color.black/*@END_MENU_TOKEN@*/, width: /*@START_MENU_TOKEN@*/1/*@END_MENU_TOKEN@*/)
-                    .rotationEffect(Angle(degrees: 45))
-                    .offset(y:10)
-                    .frame(width: sideSize, height: sideSize)
-            
-            }
-            .frame( maxWidth: .infinity)
-            .clipped()
-            Spacer()
-        }
-        
-    }
-}
-
-struct ArrowDown:View {
-    var sideSize:CGFloat = 20
-    var arrowColor:Color = Color.green
-    var body: some View{
-        ArrowUp(sideSize: sideSize, arrowColor: arrowColor).rotationEffect(Angle(degrees: 180))
-    }
-}
-
 struct Arrow:View {
     var side:Int
     var sideSize:CGFloat = 15
@@ -70,7 +40,7 @@ struct TryView: View {
     var sideSize:CGFloat = 20
     var body: some View {
         ZStack{
-            //data.result == 0 ? Color.green : Color.red
+            data.result == 0 ? Color("GoodTry") : Color("BadTry")
             Arrow(side:data.result)
                 
             
@@ -82,22 +52,57 @@ struct TryView: View {
             Text("\(data.number)")
                 .font(.largeTitle)
                 .fontWeight(.black)
+                
                
             
         }
         .padding()
+            .foregroundColor(Color.black)
             
         }
         .frame(width: 90.0, height: 90.0)
         .clipShape(RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/))
-        .overlay(RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).stroke())
+        .shadow(radius: 5)
         
+        
+    }
+}
+
+struct TriesView: View {
+    var data:[TryData]
+    var body: some View{
+        ScrollView{
+            LazyVGrid(
+                columns:[GridItem(.adaptive(minimum:90))],
+                spacing:8
+            ){
+                ForEach(data){ try_data in
+                    TryView(data: try_data)
+                }
+            }
+        }
     }
 }
 
 struct TryView_Previews: PreviewProvider {
     static var previews: some View {
-        TryView(data:TryData(id:100,number:45,result:1))
-            .previewLayout(.sizeThatFits)
+        Group {
+            TryView(data:TryData(id:100,number:45,result:1))
+                .padding()
+                .preferredColorScheme(.light)
+                .previewLayout(.sizeThatFits)
+            TryView(data:TryData(id:100,number:45,result:0))
+                .padding()
+                .preferredColorScheme(.light)
+                .previewLayout(.sizeThatFits)
+            TryView(data:TryData(id:100,number:45,result:0))
+                .padding()
+                .preferredColorScheme(.dark)
+                .previewLayout(.sizeThatFits)
+            TryView(data:TryData(id:100,number:45,result:1))
+                .padding()
+                .preferredColorScheme(.dark)
+                .previewLayout(.sizeThatFits)
+        }
     }
 }

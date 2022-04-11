@@ -10,18 +10,15 @@ import SwiftUI
 import CoreLocation
 
 struct GameProperties: Hashable, Codable{
+    var name: String
     var min: Int
     var max:Int
     var nbTry:Int
+    var easyMode:Bool = false
     
 }
 
 struct GameType: Hashable, Codable {
-    
-    var id: String
     var props: GameProperties
     var editable:Bool
-    
-    
-    
 }
